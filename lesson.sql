@@ -82,12 +82,12 @@ SELECT name, age FROM people WHERE gender = 1 ORDER BY age DESC;
 -- Q6
 SELECT name, email, age FROM people WHERE department_id = 1 ORDER BY created_at;
 
-peopleテーブルから、レコードを取得。 要件ははdepartment_id（部署ID）が1であるレコードを選択。
+peopleテーブルから、レコードを取得。 要件はdepartment_id（部署ID）が1であるレコードを選択。
 選択したレコードの中から、カラム名「name」,「email」,「age」のデータを取得。 
 「created_at」 作成日時の昇順で全体を並び替えます。
 
 -- Q7
-SELECT name,age FROM people  WHERE gender = 2 AND age >= 20 AND age <=29 OR gender = 1 AND age >= 40 AND age <=49;
+SELECT name,age FROM people  WHERE gender = 2 AND age BETWEEN 20 AND 29 OR gender = 1 AND age BETWEEN 40 AND 49;
 
 -- Q8
 SELECT department_id,age FROM people WHERE department_id = 1 ORDER BY age ASC;
@@ -96,8 +96,7 @@ SELECT department_id,age FROM people WHERE department_id = 1 ORDER BY age ASC;
 SELECT AVG(age) average_age FROM people WHERE gender = 2 AND department_id = 2;
 
 -- Q10
-SELECT p.name, p.department_id, r.content FROM people p JOIN reports r USING(person_id);
+SELECT p.name, d.name, r.content FROM people p JOIN reports r USING(person_id) JOIN departments d USING(department_id);
 
 -- Q11
-SELECT p.name, p.department_id, r.content FROM people p LEFT OUTER JOIN reports r USING (person_id);
-
+SELECT p.name FROM people p LEFT OUTER JOIN reports r USING(person_id) WHERE content IS NULL;
